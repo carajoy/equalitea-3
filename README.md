@@ -26,7 +26,7 @@ A handoff package for implementation in Codex or another production coding envir
 It is not a request to redesign the program. `assets/reference-layout/EQUALITEA_PROGRAM_LAYOUT.png` is the approved visual and information-architecture reference.
 
 ### Current known asset status
-Three speaker headshots are physically included in this package: Wendy Sartory Link, Dr. Cassondra Corbin-Thaddies, and Erica Grant. The remaining verified speaker headshots should be sourced from the official pages listed in `08_ASSET_MANIFEST.md`. Gabrielle Benson and Adrienne Perceval remain intentional placeholders unless approved real headshots are supplied before final publication.
+Three speaker headshots are physically included in this package: Wendy Sartory Link, Dr. Cassondra Corbin-Thaddies, and Erica Grant. The remaining verified speaker headshots should be sourced from the official pages listed in `08_ASSET_MANIFEST.md`. Gabrielle Benson and Adrienne Percival remain intentional placeholders unless approved real headshots are supplied before final publication.
 
 ### Important exclusion
 The separate Liquor Warehouse / EqualiTEA Community Toast campaign is **not part of this digital program build** and must not be merged into the page unless explicitly requested later.
