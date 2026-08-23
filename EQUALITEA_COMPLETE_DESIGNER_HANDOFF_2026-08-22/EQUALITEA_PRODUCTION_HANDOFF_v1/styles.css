@@ -44,7 +44,7 @@
   --chapter:clamp(72px,9vw,132px);
 
   /* ---------- measure ---------- */
-  --wide:1260px; --mid:1080px; --col:780px; --text:62ch;
+  --wide:1260px; --mid:1080px; --prog:880px; --col:780px; --text:62ch;
 
   --ease:cubic-bezier(.22,.68,.28,1);
   --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
@@ -79,6 +79,7 @@ section[id]{scroll-margin-top:calc(var(--bar,72px) + 12px)}
 .shell{width:min(100% - 44px,var(--wide));margin-inline:auto}
 .shell--mid{width:min(100% - 44px,var(--mid))}
 .shell--col{width:min(100% - 44px,var(--col))}
+.shell--prog{width:min(100% - 44px,var(--prog))}
 .chapter{padding-block:var(--chapter)}
 
 /* grain overlay for the warm grounds */
@@ -226,80 +227,65 @@ section[id]{scroll-margin-top:calc(var(--bar,72px) + 12px)}
    today's program — a single sequential spine
    ========================================================================== */
 .program{background:var(--paper)}
-.agenda{
-  --spine:clamp(18px,2.6vw,26px);
-  --gutter:clamp(58px,7.5vw,86px);
-  position:relative;margin:0;padding:0 0 var(--s6) var(--gutter);list-style:none;
+
+/* ---- order of proceedings ------------------------------------------------
+   Not a timeline: there are no per-item times, only a running order. So the
+   numerals do the sequencing typographically and every entry carries the same
+   portrait treatment — the panel is three people, not a different species. */
+.agenda{margin:0;padding:0;list-style:none}
+.entry{
+  display:grid;
+  grid-template-columns:var(--num,58px) var(--face,80px) minmax(0,1fr);
+  align-items:start;gap:0 clamp(18px,2.4vw,30px);
+  padding-block:clamp(26px,3vw,36px);
 }
-/* the track */
-.agenda::before{
-  content:"";position:absolute;top:22px;bottom:26px;left:calc(var(--spine) - 1px);
-  width:3px;border-radius:2px;
-  background:linear-gradient(180deg,var(--gold-500),rgba(201,154,46,.28) 4%,rgba(201,154,46,.28) 96%,var(--gold-500));
-}
-/* terminal ornament closes the sequence */
-.agenda::after{
-  content:"";position:absolute;bottom:12px;left:calc(var(--spine) - 5px);
-  width:11px;height:11px;background:var(--gold-500);transform:rotate(45deg);
-}
-.entry{position:relative;padding-block:var(--s6)}
 .entry + .entry{border-top:1px solid var(--hair)}
 .entry__no{
-  position:absolute;top:calc(var(--s6) + 3px);
-  left:calc(var(--gutter) * -1 + var(--spine) - 19px);
-  display:grid;place-items:center;width:38px;height:38px;
-  background:linear-gradient(150deg,var(--gold-300),var(--gold-500));
-  box-shadow:0 0 0 5px var(--paper),0 4px 12px rgba(21,11,35,.16);
-  transform:rotate(45deg);
+  grid-column:1;justify-self:end;
+  font-family:var(--serif);font-size:clamp(2.1rem,3.4vw,2.9rem);font-weight:300;
+  line-height:.85;letter-spacing:-.02em;color:var(--gold-500);
+  font-variant-numeric:lining-nums tabular-nums;
 }
-.entry__no span{
-  transform:rotate(-45deg);font-family:var(--serif);font-size:1.15rem;font-weight:600;
-  color:var(--plum-900);font-variant-numeric:lining-nums tabular-nums;
+.entry__face{grid-column:2;width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%}
+.entry__face,.panelist img{
+  background:var(--parchment);
+  box-shadow:0 0 0 1px var(--hair-gold),0 0 0 5px var(--paper),0 0 0 6px rgba(21,11,35,.05);
 }
-/* tick joining the marker to its entry */
-.entry::before{
-  content:"";position:absolute;top:calc(var(--s6) + 21px);
-  left:calc(var(--gutter) * -1 + var(--spine) + 22px);
-  width:calc(var(--gutter) - var(--spine) - 30px);height:1px;background:var(--hair-gold);
-}
+.entry__body{grid-column:3;min-width:0;padding-top:2px}
 .entry__role{
   margin:0 0 var(--s2);font-size:var(--eyebrow);font-weight:500;
   letter-spacing:.24em;text-transform:uppercase;color:var(--gold-text);
 }
 .entry h3{
-  margin:0 0 var(--s2);font-size:clamp(1.4rem,2.4vw,1.75rem);font-weight:600;
+  margin:0 0 var(--s2);font-size:clamp(1.35rem,2.2vw,1.7rem);font-weight:600;
   line-height:1.15;color:var(--plum-800);
 }
 .entry p:not(.entry__role){margin:0;font-size:var(--small);line-height:1.65;color:var(--muted)}
 
-/* featured panel breaks the spine */
-.panel{position:relative}
-/* stays anchored to the spine like every other step; the emphasis is
-   an inset plum block inside the entry column, not a break-out */
+/* the one item that is three people at once */
+.panel .entry__body{grid-column:3}
 .panel__inner{
-  position:relative;overflow:hidden;margin-top:var(--s5);
-  padding:clamp(30px,4vw,44px) clamp(22px,3vw,38px);
-  background:linear-gradient(168deg,var(--plum-800),var(--plum-900) 74%);
-  color:var(--white);
+  position:relative;margin-top:var(--s5);
+  padding:clamp(30px,3.4vw,40px) clamp(20px,2.6vw,30px);
+  background:linear-gradient(170deg,var(--parchment),#EDE5D6);
+  box-shadow:inset 0 0 0 1px var(--hair-gold);
 }
 .panel__inner::before{
-  content:"";position:absolute;inset:9px;pointer-events:none;
-  border:1px solid rgba(228,193,112,.24);
+  content:"";position:absolute;inset:0 0 auto;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold-500) 26%,var(--gold-300) 50%,var(--gold-500) 74%,transparent);
 }
 .panelists{
-  position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:clamp(18px,3vw,36px);
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(14px,2vw,26px);
 }
-.panelist{text-align:center;min-width:0}
+.panelist{min-width:0;text-align:center}
 .panelist img{
-  width:min(132px,100%);aspect-ratio:1;margin:0 auto var(--s4);
+  width:clamp(84px,7vw,104px);aspect-ratio:1;margin:0 auto var(--s4);
   object-fit:cover;border-radius:50%;
-  box-shadow:0 0 0 1px rgba(228,193,112,.85),0 0 0 7px rgba(228,193,112,.12),0 18px 40px rgba(0,0,0,.4);
+  box-shadow:0 0 0 1px var(--hair-gold),0 0 0 5px var(--parchment),0 0 0 6px rgba(21,11,35,.05);
 }
-.panelist h3{
-  margin:0 0 var(--s2);font-size:1.15rem;font-weight:600;line-height:1.2;color:var(--white);
-}
-.panelist p{margin:0;font-size:var(--micro);line-height:1.5;color:rgba(255,255,255,.68)}
+.panelist h3{margin:0 0 var(--s1);font-size:var(--base);font-weight:600;line-height:1.2}
+.panelist p{margin:0;font-size:var(--micro);line-height:1.5;color:var(--muted)}
 
 /* ==========================================================================
    today's voices
@@ -667,8 +653,8 @@ a.mark--type:hover{color:var(--gold-text)}
   .nav a{padding:var(--s4) 0;font-size:.6875rem;letter-spacing:.16em}
   .nav a::after{bottom:10px}
   .triptych{grid-template-columns:1fr}
-  .panelists{gap:var(--s5) var(--s3)}
-  .panelist img{width:min(118px,100%)}
+  .entry{--num:48px;--face:70px}
+  .panelists{gap:var(--s4) var(--s3)}
 }
 
 @media (max-width:680px){
@@ -767,15 +753,14 @@ a.mark--type:hover{color:var(--gold-text)}
   .committee{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:680px){
-  .agenda{--gutter:52px;--spine:16px}
-  .entry__no{width:32px;height:32px;left:calc(var(--gutter) * -1 + var(--spine) - 16px)}
-  .entry__no span{font-size:1rem}
-  .entry::before{
-    top:calc(var(--s6) + 18px);
-    left:calc(var(--gutter) * -1 + var(--spine) + 19px);
-    width:calc(var(--gutter) - var(--spine) - 26px);
-  }
-  .panel__inner{padding:var(--s6) var(--s5)}
+  .entry{--num:30px;--face:56px;gap:0 var(--s3);padding-block:var(--s5)}
+  .panel .entry__body{grid-column:2/-1}
+  .panel__inner{margin-inline:calc(var(--face) * -1 - var(--s3))}
+  .entry__no{font-size:1.6rem;padding-top:3px}
+  .entry h3{font-size:1.2rem}
+  .panel__inner{padding:var(--s5) var(--s4)}
+  .panelists{grid-template-columns:1fr;gap:var(--s5)}
+  .panelist img{width:104px}
   .committee{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s5) var(--s4);margin-bottom:var(--s8)}
   .committee li{font-size:1.05rem}
   .design-credit{padding-top:var(--s7)}
