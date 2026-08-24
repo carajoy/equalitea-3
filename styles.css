@@ -510,6 +510,8 @@ a.mark--type:hover{color:var(--gold-text)}
   padding-top:var(--s8);border-top:1px solid var(--hair);
 }
 .design-credit .eyebrow{margin:0}
+.design-credit a{justify-self:center;width:260px;max-width:72%}
+.design-credit a img{width:100%}
 .design-credit img{
   width:min(260px,72%);padding:var(--s4) var(--s5);background:var(--white);
   box-shadow:0 0 0 1px var(--hair-gold),0 0 0 6px var(--paper),0 0 0 7px var(--hair);
